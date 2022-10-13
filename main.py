@@ -11,7 +11,7 @@ def main(argv):
 
     while True:
         print("-> Waiting stream up...")
-        streams = {}
+        streams = streamlink.streams(stream_url)
         while len(streams) == 0:
             time.sleep(delay_sec)
             try:
@@ -23,7 +23,7 @@ def main(argv):
 
         print("-> Start download stream :)")
         subprocess.call([
-            "streamlink", "-o", "{author}-{id}-{time:%Y-%m-%d %H:%M:%S}.ts",
+            "streamlink", "--twitch-disable-ads", "-o", "{author}-{id}-{time:%Y-%m-%d %H:%M:%S}.ts",
             stream_url, "best"]
         )
         time.sleep(delay_sec)
